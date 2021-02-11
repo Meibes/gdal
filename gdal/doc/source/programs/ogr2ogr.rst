@@ -521,5 +521,11 @@ layer used to fill the fifth field of the target layer.
 .. code-block::
 
     ogr2ogr -append -fieldmap 2,-1,4 dst.shp src.shp
+    
+Example using a custom transformation by taking into account the axis order using a PROJ string
+
+.. code-block::
+
+    ogr2ogr -s_srs "EPSG:2398" -t_srs "EPSG:25833" -ct "+proj=pipeline +step +proj=axisswap +order=2,1 +step +inv +proj=tmerc +lat_0=0 +lon_0=12 +k=1 +x_0=4500000 +y_0=0 +ellps=krass +step +proj=hgridshift +grids=NTv2LSBB_LSA.gsb +step +proj=utm +zone=33 +ellps=GRS80" -f DXF points_25833.dxf points_2398.dxf
 
 More examples are given in the individual format pages.
